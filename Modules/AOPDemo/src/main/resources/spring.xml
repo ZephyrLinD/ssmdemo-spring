@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="userDao" class="co.zephyrl.dao.UserDaoImpl">
+    </bean>
+
+    <!-- 配置切面类 -->
+    <bean id="aopDemo" class="co.zephyrl.dao.AopDemo">
+    </bean>
+
+    <aop:config>
+        <aop:pointcut id="p1" expression="execution(* co.zephyrl.dao.UserDao.save(..))"  />
+        <aop:pointcut id="p2" expression="execution(* co.zephyrl.dao.UserDao.delete(..))"/>
+        <aop:pointcut id="p3" expression="execution(* co.zephyrl.dao.UserDao.update(..))"/>
+        <!--配置切面-->
+        <aop:aspect ref="aopDemo">
+            <!-- 配置前置通知指向切面中的方法，切入点指向p1 -->
+            <aop:before method="before" pointcut-ref="p1" />
+            <!-- 配置后置通知指向切面中的删除方法，切入点指向p2 -->
+            <aop:after-returning method="af" pointcut-ref="p2" returning="num" />
+            <!-- 配置环绕通知指向切面中的修改方法，切入点指向p3 -->
+            <aop:around method="ar" pointcut-ref="p3" />
+            <!-- 配置异常通知指向切面中的修改方法，切入点指向p3 -->
+            <aop:after-throwing method="th" pointcut-ref="p3" throwing="thr" />
+            <!-- 配置最终通知指向切面中的修改方法，切入点指向p3 -->
+            <aop:after method="zz" pointcut-ref="p3" />
+        </aop:aspect>
+    </aop:config>
+</beans>
