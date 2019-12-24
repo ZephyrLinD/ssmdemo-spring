@@ -17,9 +17,11 @@
     <!-- 数据库连接池 -->
     <bean id="managerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql:/ssmdemo?serverTimezone=UTC" />
+<!--        <property name="url" value="jdbc:mysql:/ssmdemo?serverTimezone=UTC" />-->
+        <property name="url" value="jdbc:mysql:/LZA_SSM?serverTimezone=UTC" />
         <property name="username" value="root" />
-        <property name="password" value="lza19990423." />
+<!--        <property name="password" value="lza19990423." />-->
+        <property name="password" value="123456" />
     </bean>
 
     <!-- JDBC模板 -->
